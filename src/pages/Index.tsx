@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import Icon from "@/components/ui/icon";
+import ProbabilityCalculator from "@/components/ProbabilityCalculator";
 
 const Index = () => {
+  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-accent/10 pointer-events-none" />
@@ -318,7 +322,7 @@ const Index = () => {
                 <div className="aspect-video bg-muted/30 rounded-lg flex items-center justify-center border border-border/50">
                   <Icon name="LineChart" className="text-muted-foreground" size={64} />
                 </div>
-                <Button className="w-full">
+                <Button className="w-full" onClick={() => setIsCalculatorOpen(true)}>
                   Запустить калькулятор
                   <Icon name="Play" className="ml-2" size={16} />
                 </Button>
@@ -457,6 +461,21 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      <Dialog open={isCalculatorOpen} onOpenChange={setIsCalculatorOpen}>
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl flex items-center gap-2">
+              <Icon name="Calculator" className="text-primary" size={28} />
+              Калькулятор вероятностей
+            </DialogTitle>
+            <DialogDescription>
+              Интерактивная визуализация вашей квантовой натальной карты
+            </DialogDescription>
+          </DialogHeader>
+          <ProbabilityCalculator />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
