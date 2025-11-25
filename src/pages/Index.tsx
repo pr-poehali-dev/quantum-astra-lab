@@ -6,9 +6,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import Icon from "@/components/ui/icon";
 import ProbabilityCalculator from "@/components/ProbabilityCalculator";
+import AffirmationGenerator from "@/components/AffirmationGenerator";
+import ConsultationBooking from "@/components/ConsultationBooking";
 
 const Index = () => {
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
+  const [isAffirmationOpen, setIsAffirmationOpen] = useState(false);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-accent/10 pointer-events-none" />
@@ -346,7 +350,7 @@ const Index = () => {
                     "Я сознательно создаю прочные структуры в сфере карьеры, выбирая путь наибольшей вероятности успеха"
                   </p>
                 </div>
-                <Button className="w-full" variant="outline">
+                <Button className="w-full" variant="outline" onClick={() => setIsAffirmationOpen(true)}>
                   Создать новую аффирмацию
                   <Icon name="RefreshCw" className="ml-2" size={16} />
                 </Button>
@@ -405,7 +409,7 @@ const Index = () => {
 
               <div className="pt-4 text-center space-y-4">
                 <div className="text-3xl font-bold text-primary">7 500 ₽</div>
-                <Button size="lg" className="w-full md:w-auto bg-gradient-to-r from-primary to-secondary hover:opacity-90">
+                <Button size="lg" className="w-full md:w-auto bg-gradient-to-r from-primary to-secondary hover:opacity-90" onClick={() => setIsBookingOpen(true)}>
                   Записаться на консультацию
                   <Icon name="Calendar" className="ml-2" size={20} />
                 </Button>
@@ -474,6 +478,36 @@ const Index = () => {
             </DialogDescription>
           </DialogHeader>
           <ProbabilityCalculator />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isAffirmationOpen} onOpenChange={setIsAffirmationOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl flex items-center gap-2">
+              <Icon name="Wand2" className="text-accent" size={28} />
+              Генератор квантовых аффирмаций
+            </DialogTitle>
+            <DialogDescription>
+              Создайте персональную аффирмацию для смещения реальности
+            </DialogDescription>
+          </DialogHeader>
+          <AffirmationGenerator />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl flex items-center gap-2">
+              <Icon name="Calendar" className="text-primary" size={28} />
+              Запись на консультацию
+            </DialogTitle>
+            <DialogDescription>
+              Выберите удобное время для персональной сессии
+            </DialogDescription>
+          </DialogHeader>
+          <ConsultationBooking />
         </DialogContent>
       </Dialog>
     </div>
